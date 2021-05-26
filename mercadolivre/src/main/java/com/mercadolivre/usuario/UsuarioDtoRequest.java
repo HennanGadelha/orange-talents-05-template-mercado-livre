@@ -1,6 +1,7 @@
 package com.mercadolivre.usuario;
 
 import com.mercadolivre.config.security.Senha;
+import com.mercadolivre.config.validacao.uniqueValue.UniqueValue;
 import com.mercadolivre.usuario.Usuario;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,7 @@ public class UsuarioDtoRequest implements UserDetails {
     @NotEmpty
     @NotNull
     @NotBlank
+    @UniqueValue(domainClass = Usuario.class, fieldName = "emailLogin")
     private String emailLogin;
 
     @Lob
