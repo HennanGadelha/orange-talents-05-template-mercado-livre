@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.Optional;
 
 public class CategoriaDtoRequest {
 
@@ -33,10 +34,9 @@ public class CategoriaDtoRequest {
         return idCategoriaPrincipal;
     }
 
+    public Categoria toModel(){
 
-    public Categoria toModel(CategoriaDtoRequest categoriaDtoRequest){
-        return new Categoria(categoriaDtoRequest.getNome());
+        return new Categoria(this.nome);
     }
-
 
 }

@@ -20,12 +20,12 @@ public class CategoriaControllerCadastro {
     @PostMapping
     public ResponseEntity<?> cadastro(@RequestBody @Valid  CategoriaDtoRequest categoriaDtoRequest){
 
-        Categoria categoria = categoriaDtoRequest.toModel(categoriaDtoRequest);
+        Categoria categoria = categoriaDtoRequest.toModel();
 
         if(categoriaDtoRequest.getIdCategoriaPrincipal() != null){
 
-            Categoria categoriaPrincipal = categoriaRepository.getById(categoriaDtoRequest.getIdCategoriaPrincipal());
-            categoria.atrelarCategoriaPrincipal(categoriaPrincipal);
+            Optional<Categoria> categoriaPrincipal = categoriaRepository.findById(categoriaDtoRequest.getIdCategoriaPrincipal());
+            categoria.atrelarCategoriaPrincipal(categoriaPrincipal.get());
 
         }
 
