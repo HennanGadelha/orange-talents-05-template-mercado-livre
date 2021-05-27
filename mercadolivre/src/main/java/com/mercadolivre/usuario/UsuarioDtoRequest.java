@@ -12,7 +12,7 @@ import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.util.Collection;
 
-public class UsuarioDtoRequest implements UserDetails {
+public class UsuarioDtoRequest  {
 
     @Email
     @NotEmpty
@@ -47,38 +47,5 @@ public class UsuarioDtoRequest implements UserDetails {
         return new Usuario(usuarioDtoRequest.getEmailLogin(), new Senha(usuarioDtoRequest.getSenha()));
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 
-    @Override
-    public String getPassword() {
-        return this.senha;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.emailLogin;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
