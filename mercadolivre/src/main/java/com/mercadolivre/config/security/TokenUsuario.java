@@ -9,10 +9,12 @@ import com.mercadolivre.usuario.Usuario;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
-public class TokenService {
+@Component
+public class TokenUsuario {
 
 	@Value("${mercadolivre.jwt.expiration}")
 	private String expiration;

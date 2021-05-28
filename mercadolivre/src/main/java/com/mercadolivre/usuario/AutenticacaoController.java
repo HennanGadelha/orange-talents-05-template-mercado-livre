@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mercadolivre.config.security.TokenService;
+import com.mercadolivre.config.security.TokenUsuario;
 
 @RestController
 @RequestMapping("/auth")
@@ -26,7 +26,7 @@ public class AutenticacaoController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenService tokenService;
+    private TokenUsuario tokenUsuario;
 
 
     @PostMapping
@@ -36,7 +36,7 @@ public class AutenticacaoController {
 
         try {
             Authentication authentication =  authenticationManager.authenticate(dadosLogin);
-            String token = tokenService.gerarToken(authentication);
+            String token = tokenUsuario.gerarToken(authentication);
             return ResponseEntity.ok(new TokenUsuarioDto(token, "Bearer"));
         }catch (AuthenticationException ex){
 
