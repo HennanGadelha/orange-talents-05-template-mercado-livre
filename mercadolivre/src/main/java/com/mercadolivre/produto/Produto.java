@@ -1,0 +1,118 @@
+package com.mercadolivre.produto;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.mercadolivre.caracteristica.CaracteristicaProduto;
+import com.mercadolivre.caracteristica.CaracteristicasDtoRequest;
+import com.mercadolivre.categoria.Categoria;
+import com.mercadolivre.usuario.Usuario;
+
+@Entity
+public class Produto {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	private String nome;
+	private BigDecimal valor;
+	
+	private Integer quantidadeDisponivel;
+	private String descricao;
+	
+	private Instant dataCadastro;
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+	private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
+	
+	@ManyToOne
+	private Categoria categoria;
+	
+	@ManyToOne
+	private Usuario usuario;
+	
+	
+	public Produto(String nome, BigDecimal valor, Integer quantidadeDisponivel, 
+			String descricao, Categoria categoria, Usuario usuario, 
+			Collection<CaracteristicasDtoRequest> caracteristicas) {
+		
+		this.nome = nome;
+		this.valor = valor;
+		this.quantidadeDisponivel = quantidadeDisponivel;
+		this.descricao = descricao;
+		this.categoria = categoria;
+		this.dataCadastro = Instant.now();
+		this.usuario = usuario;
+		
+		this.caracteristicas.addAll(caracteristicas.stream()
+				.map(caracteristica -> caracteristica.toModel(this))
+				.collect(Collectors.toSet()));
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (categoria == null) {
+			if (other.categoria != null)
+				return false;
+		} else if (!categoria.equals(other.categoria))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
+	}
+
+
+	public Set<CaracteristicaProduto> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+
+	public void setCaracteristicas(Set<CaracteristicaProduto> caracteristicas) {
+		this.caracteristicas = caracteristicas;
+	}
+	
+	
+	
+	
+	
+}

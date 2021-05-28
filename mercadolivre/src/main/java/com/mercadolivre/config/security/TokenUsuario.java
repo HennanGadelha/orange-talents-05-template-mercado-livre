@@ -4,14 +4,13 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import com.mercadolivre.usuario.Usuario;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class TokenUsuario {
@@ -34,5 +33,23 @@ public class TokenUsuario {
                 .compact();
 
     }
+    
+    
+	public boolean isTokenValido(String token) {
+		try {
+			Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+    
+	
+	
+	public Long getUsuarioToken(String token) {
+		Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
+		String id = claims.getSubject();
+		return Long.parseLong(id);
+	}
 
 }
