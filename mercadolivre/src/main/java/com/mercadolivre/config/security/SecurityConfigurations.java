@@ -45,7 +45,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
         		.antMatchers(HttpMethod.POST, "/cadastro").permitAll()
                 .and().authorizeRequests().antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .and().authorizeRequests().antMatchers(HttpMethod.POST, "/produtos").authenticated()
+                .and().authorizeRequests().antMatchers(HttpMethod.POST, "/produtos/**").authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

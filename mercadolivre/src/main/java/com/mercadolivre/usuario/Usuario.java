@@ -49,8 +49,35 @@ public class Usuario implements UserDetails {
     public Instant getDataCadastro() {
         return dataCadastro;
     }
+    
+    
 
     @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((emailLogin == null) ? 0 : emailLogin.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (emailLogin == null) {
+			if (other.emailLogin != null)
+				return false;
+		} else if (!emailLogin.equals(other.emailLogin))
+			return false;
+		return true;
+	}
+
+	@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }

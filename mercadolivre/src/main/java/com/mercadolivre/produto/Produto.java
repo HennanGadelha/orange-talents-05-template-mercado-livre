@@ -14,10 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.mercadolivre.caracteristica.CaracteristicaProduto;
 import com.mercadolivre.caracteristica.CaracteristicasDtoRequest;
 import com.mercadolivre.categoria.Categoria;
+import com.mercadolivre.produto.imagens.ImagemProduto;
 import com.mercadolivre.usuario.Usuario;
 
 @Entity
@@ -43,6 +46,12 @@ public class Produto {
 	
 	@ManyToOne
 	private Usuario usuario;
+
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+	private Set<ImagemProduto> imagens = new HashSet<>();
+	
+	@Deprecated
+	public Produto() {}
 	
 	
 	public Produto(String nome, BigDecimal valor, Integer quantidadeDisponivel, 
@@ -110,8 +119,21 @@ public class Produto {
 	public void setCaracteristicas(Set<CaracteristicaProduto> caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
+
+
+	public void addImg(Set<String> linksImagens) {
+		// TODO Auto-generated method stub
+		Set<ImagemProduto> imagens = linksImagens.stream().map(img -> 
+		new ImagemProduto(this, img)).collect(Collectors.toSet());
+		
+		this.imagens.addAll(imagens);
+	}
 	
 	
+	public boolean pertenceAoUsuario(Usuario proprietarioProduto) {
+		
+		return usuario.equals(proprietarioProduto);
+	}
 	
 	
 	
