@@ -22,15 +22,15 @@ public class OpiniaoDtoRequest {
 	@NotEmpty
 	@NotBlank
 	private String descricao;
-	private Long idProduto;
 	
-	public OpiniaoDtoRequest(Integer nota, String titulo, String descricao, Long idProduto) {
+	
+	public OpiniaoDtoRequest(Integer nota, String titulo, String descricao) {
 		
 		this.nota = nota;
 		this.titulo = titulo;
 		this.descricao = descricao;
-		this.idProduto = idProduto;
 		
+	
 	}
 
 	public Integer getNota() {
@@ -45,9 +45,6 @@ public class OpiniaoDtoRequest {
 		return descricao;
 	}
 
-	public Long getIdProduto() {
-		return idProduto;
-	}
 
 	public Opiniao toModel(Produto produto, Usuario usuario) {
 		// TODO Auto-generated method stub

@@ -134,7 +134,13 @@ public class Produto {
 		
 		return usuario.equals(proprietarioProduto);
 	}
-	
+
+
+	public Usuario getProprietario() {
+		return usuario;
+	}
+
+
 	
 	
 }
