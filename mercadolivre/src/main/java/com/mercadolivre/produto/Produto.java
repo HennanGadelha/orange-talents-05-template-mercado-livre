@@ -21,6 +21,9 @@ import com.mercadolivre.caracteristica.CaracteristicaProduto;
 import com.mercadolivre.caracteristica.CaracteristicasDtoRequest;
 import com.mercadolivre.categoria.Categoria;
 import com.mercadolivre.produto.imagens.ImagemProduto;
+import com.mercadolivre.produto.opiniao.Opiniao;
+import com.mercadolivre.produto.perguntas.Pergunta;
+import com.mercadolivre.produto.perguntas.PerguntaDtoResponse;
 import com.mercadolivre.usuario.Usuario;
 
 @Entity
@@ -38,8 +41,15 @@ public class Produto {
 	
 	private Instant dataCadastro;
 	
-	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "produto")
 	private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
+	
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+	private Set<Pergunta> perguntas = new HashSet<>();
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+	private Set<Opiniao> opinioes = new HashSet<>();
 	
 	@ManyToOne
 	private Categoria categoria;
@@ -115,12 +125,6 @@ public class Produto {
 		return caracteristicas;
 	}
 
-
-	public void setCaracteristicas(Set<CaracteristicaProduto> caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-
-
 	public void addImg(Set<String> linksImagens) {
 		// TODO Auto-generated method stub
 		Set<ImagemProduto> imagens = linksImagens.stream().map(img -> 
@@ -141,6 +145,39 @@ public class Produto {
 	}
 
 
-	
+	public String getNome() {
+		return nome;
+	}
+
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+
+	public Set<ImagemProduto> getImagens() {
+		return imagens;
+	}
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+	public Set<Pergunta> getPerguntas() {
+		return perguntas;
+	}
+
+
+	public Set<Opiniao> getOpinioes() {
+		return opinioes;
+	}
+
 	
 }

@@ -14,7 +14,7 @@ public class uploadLocal {
 		// TODO Auto-generated method stub
 		
 		
-		return  imagens.stream().map(imagem -> "Imagem: " + imagem.getOriginalFilename())
+		return  imagens.stream().map(imagem -> "wwww.mercadolivrezup.com/imagens/" + imagem.getOriginalFilename())
 				.collect(Collectors.toSet());
 	}
 

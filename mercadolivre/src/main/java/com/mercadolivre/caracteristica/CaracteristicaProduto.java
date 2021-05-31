@@ -21,6 +21,10 @@ public class CaracteristicaProduto {
 	@ManyToOne
 	private Produto produto;
 	
+	@Deprecated
+	public CaracteristicaProduto() {}
+	
+	
 	public CaracteristicaProduto(String nome, String descricao, Produto produto) {
 		super();
 		this.nome = nome;

@@ -28,6 +28,12 @@ public class ImagemProduto {
 		this.linkImagem = linkImagem;
 		
 	}
+
+	public String getLinkImagem() {
+		return linkImagem;
+	}
+	
+	
 	
 	
 }

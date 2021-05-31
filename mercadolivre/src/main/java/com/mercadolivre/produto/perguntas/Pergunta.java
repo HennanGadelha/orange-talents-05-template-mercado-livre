@@ -1,6 +1,7 @@
 package com.mercadolivre.produto.perguntas;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Pergunta {
 	@ManyToOne
 	private Produto produto;
 	
-	private Instant dataPergunta;
+	private LocalDateTime dataPergunta;
 	
 	@Deprecated
 	public Pergunta() {}
@@ -35,8 +36,10 @@ public class Pergunta {
 		this.titulo = titulo;
 		this.usuario = usuario;
 		this.produto = produto;
-		this.dataPergunta = Instant.now();
+		this.dataPergunta = LocalDateTime.now();
 	}
+
+	
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -44,6 +47,42 @@ public class Pergunta {
 
 	public Produto getProduto() {
 		return produto;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public LocalDateTime getDataPergunta() {
+		return dataPergunta;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pergunta other = (Pergunta) obj;
+		if (produto == null) {
+			if (other.produto != null)
+				return false;
+		} else if (!produto.equals(other.produto))
+			return false;
+		if (titulo == null) {
+			if (other.titulo != null)
+				return false;
+		} else if (!titulo.equals(other.titulo))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
+			return false;
+		return true;
 	}
 	
 	

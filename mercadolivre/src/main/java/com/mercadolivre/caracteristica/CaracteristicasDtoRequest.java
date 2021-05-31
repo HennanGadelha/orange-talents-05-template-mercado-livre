@@ -12,7 +12,6 @@ public class CaracteristicasDtoRequest {
 	private String descricao;
 	
 	public CaracteristicasDtoRequest(String nome, String descricao) {
-		super();
 		this.nome = nome;
 		this.descricao = descricao;
 	}
