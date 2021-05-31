@@ -179,5 +179,13 @@ public class Produto {
 		return opinioes;
 	}
 
-	
+
+    public boolean retiradaEstoque(int quantidade) {
+
+		if(quantidade <= this.quantidadeDisponivel) {
+			this.quantidadeDisponivel -= quantidade;
+			return  true;
+		}
+		return false;
+    }
 }
